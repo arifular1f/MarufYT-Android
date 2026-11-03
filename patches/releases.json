@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "primary": {
+    "package": "com.google.android.youtube",
+    "version_name": "21.44.528",
+    "version_code": 1561310186,
+    "sha256": "55be430ce82dcedcb737ea27d1b78576737b75d11cde04aa89989e5376d3ae6c",
+    "purpose": "Local research candidate only; no patches supported"
+  },
+  "fallback": null
+}

@@ -1,0 +1,13 @@
+# Security
+
+Do not commit proprietary APKs, credentials, private signing material or user data. No release signing is configured. Android tooling automatically generates a local debug key outside the repository; debug APKs are for testing only.
+
+The foundation app declares no permissions, network operations or telemetry. Future integrations require explicit privacy review and user controls. Treat future APK inputs as untrusted data; do not execute embedded code. Keep diagnostics local and redact identifiers before user-controlled export.
+
+tools/validate_foundation.py checks structure, forbidden asset types and a limited set of credential patterns. It is not a comprehensive secret audit. Review diffs and enable GitHub secret scanning when available. CI grants contents:read only, does not use repository secrets and does not use pull_request_target. Third-party actions use major version tags; review and pin immutable action SHAs before a production release.
+
+Phase 2A permits user-supplied APK/container inputs only within ignored main apk/; the validator rejects tracked contents there. It continues rejecting signing keys even in that directory. Raw analysis output stays in ignored validation-local/ and must not be uploaded. The ZIP reader enforces entry/aggregate size limits, checks original entry names before Windows normalization, rejects duplicates/traversal/encryption/symlinks, streams CRC checks and verifies DEX headers/checksums. SDK subprocesses run with argument arrays and no shell. Analysis is read-only and no embedded APK code is executed. It is not a complete Android parser or sandbox; use trusted SDK tools and do not equate valid signatures with safety. No APK signing operation is added.
+
+Phase 2B gates structural inspection on the expected full-file hash and package/version identity. It publishes selected identifiers/hashes/relationships only; raw disassembly, resource values and SDK output stay ignored. Evidence filenames are derived from descriptor hashes rather than untrusted class names. DEX offsets, indices, strings and ULEB encodings are bounds-checked. JSON Schema plus cross-record validation reject inconsistent metadata and positive patch-support claims. This is not a runtime security audit. In particular, the supplied APK's decoded base network configuration permits cleartext while domain rules prohibit it for selected domains; do not claim global HTTPS enforcement or infer actual requests from that declaration.
+
+Report vulnerabilities privately to repository owner arifular1f using GitHub private vulnerability reporting when available. Do not post credentials or proprietary APKs in issues. Rotate exposed credentials immediately.

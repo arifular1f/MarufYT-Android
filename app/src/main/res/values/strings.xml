@@ -1,0 +1,4 @@
+<resources>
+    <string name="unavailable_reason">Unavailable · %1$s</string>
+    <string name="reset_appearance">Reset appearance</string>
+</resources>

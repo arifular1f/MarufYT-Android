@@ -1,0 +1,679 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:marufyt:fingerprint-schema:1",
+  "title": "MarufYT read-only fingerprint inventory",
+  "description": "Version-neutral evidence schema. Feature-role confidence is separate from verified symbol existence; no patch support is implied.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "identity": {
+      "type": "object",
+      "properties": {
+        "package": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "min_sdk": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "target_sdk": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compile_sdk": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compile_codename": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version_code": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "package",
+        "version_name",
+        "min_sdk",
+        "target_sdk",
+        "compile_sdk",
+        "compile_codename",
+        "version_code",
+        "sha256",
+        "size_bytes"
+      ],
+      "additionalProperties": false
+    },
+    "integrity": {
+      "type": "object",
+      "properties": {
+        "gate_passed": {
+          "const": true
+        },
+        "sha256_before": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sha256_after": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "unchanged": {
+          "const": true
+        }
+      },
+      "required": [
+        "gate_passed",
+        "sha256_before",
+        "sha256_after",
+        "unchanged"
+      ],
+      "additionalProperties": false
+    },
+    "tooling": {
+      "type": "object",
+      "properties": {
+        "reader": {
+          "type": "string"
+        },
+        "python": {
+          "type": "string"
+        },
+        "aapt2": {
+          "type": "string"
+        },
+        "sdk_command_line_tools": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "reader",
+        "python",
+        "aapt2",
+        "sdk_command_line_tools"
+      ],
+      "additionalProperties": false
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "total_defined_classes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "resource_entry_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sdk_cross_checked_classes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "total_defined_classes",
+        "resource_entry_count",
+        "sdk_cross_checked_classes",
+        "limitations"
+      ],
+      "additionalProperties": false
+    },
+    "dex_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^classes(?:[2-9]|[1-9][0-9]+)?\\.dex$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "class_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "method_id_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "field_id_count": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "name",
+          "sha256",
+          "class_count",
+          "method_id_count",
+          "field_id_count"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "classes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/class"
+      }
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/resource"
+      }
+    },
+    "manifest_components": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/manifest"
+      }
+    },
+    "native_libraries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/native"
+      }
+    },
+    "decoded_resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "xmltree_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "xmltree_sha256",
+          "path"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "EXTENDS",
+              "IMPLEMENTS",
+              "MANIFEST_ALIAS",
+              "INVOKES",
+              "RESOURCE_LITERAL"
+            ]
+          },
+          "confidence": {
+            "enum": [
+              "HIGH",
+              "MEDIUM",
+              "LOW"
+            ]
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "target",
+          "kind",
+          "confidence",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "areas": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/area"
+      }
+    },
+    "patch_supported": {
+      "const": false
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "identity",
+    "integrity",
+    "tooling",
+    "coverage",
+    "dex_files",
+    "classes",
+    "resources",
+    "manifest_components",
+    "native_libraries",
+    "decoded_resources",
+    "relationships",
+    "areas",
+    "patch_supported",
+    "observations"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "class": {
+      "type": "object",
+      "properties": {
+        "descriptor": {
+          "type": "string",
+          "pattern": "^L[^;]+;$"
+        },
+        "dex": {
+          "type": "string",
+          "pattern": "^classes(?:[2-9]|[1-9][0-9]+)?\\.dex$"
+        },
+        "class_def_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "access_flags": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "superclass": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "interfaces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/field"
+          }
+        },
+        "methods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/method"
+          }
+        },
+        "confidence": {
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW"
+          ]
+        },
+        "evidence_kind": {
+          "const": "DEX_DECLARATION"
+        },
+        "selection_reason": {
+          "enum": [
+            "AREA_QUERY",
+            "ANCESTOR"
+          ]
+        }
+      },
+      "required": [
+        "descriptor",
+        "dex",
+        "class_def_index",
+        "access_flags",
+        "superclass",
+        "interfaces",
+        "fields",
+        "methods",
+        "confidence",
+        "evidence_kind",
+        "selection_reason"
+      ],
+      "additionalProperties": false
+    },
+    "method": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "pattern": "^L[^;]+;->[^\\s]+\\(.*\\).+$"
+        },
+        "kind": {
+          "enum": [
+            "direct",
+            "virtual"
+          ]
+        },
+        "access_flags": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "method_id_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "code_offset": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "instruction_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "instruction_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "identifier",
+        "kind",
+        "access_flags",
+        "method_id_index",
+        "code_offset",
+        "instruction_units",
+        "instruction_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "field": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "pattern": "^L[^;]+;->[^:]+:.+$"
+        },
+        "kind": {
+          "enum": [
+            "static",
+            "instance"
+          ]
+        },
+        "access_flags": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "identifier",
+        "kind",
+        "access_flags"
+      ],
+      "additionalProperties": false
+    },
+    "resource": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^0x[0-9a-f]{8}$"
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[^/]+/.+$"
+        },
+        "file_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "file_paths"
+      ],
+      "additionalProperties": false
+    },
+    "manifest": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "application",
+            "activity",
+            "activity-alias",
+            "service",
+            "receiver",
+            "provider"
+          ]
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "descriptor": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "intent_filters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "actions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "categories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "actions",
+              "categories"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "defined_dex": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^classes(?:[2-9]|[1-9][0-9]+)?\\.dex$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "identifier",
+        "descriptor",
+        "attributes",
+        "intent_filters",
+        "defined_dex"
+      ],
+      "additionalProperties": false
+    },
+    "native": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "compressed_size": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "crc32": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{8}$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "elf_class": {
+          "enum": [
+            32,
+            64,
+            null
+          ]
+        },
+        "machine": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "load_alignments": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "required": [
+        "name",
+        "size",
+        "compressed_size",
+        "crc32",
+        "sha256",
+        "elf_class",
+        "machine",
+        "load_alignments"
+      ],
+      "additionalProperties": false
+    },
+    "area": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "confidence": {
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW"
+          ]
+        },
+        "class_identifiers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "resource_identifiers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "manifest_identifiers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "relationship_assessment": {
+          "type": "string"
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "confidence",
+        "class_identifiers",
+        "resource_identifiers",
+        "manifest_identifiers",
+        "relationship_assessment",
+        "unknowns"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

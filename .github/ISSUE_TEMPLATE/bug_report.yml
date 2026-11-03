@@ -1,0 +1,15 @@
+name: Bug report
+description: Report a tooling or companion-app issue
+body:
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction and expected behavior
+      description: Include project version, Android/Windows version and exact commands. Do not attach proprietary APKs, keys or account data.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Redacted evidence
+      description: Include relevant errors and whether this is a device test or a static observation.

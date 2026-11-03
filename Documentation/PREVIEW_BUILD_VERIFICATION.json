@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0-preview.1",
+  "package": "io.github.arifular1f.marufyt",
+  "min_sdk": 26,
+  "target_sdk": 36,
+  "size_bytes": 15825,
+  "sha256": "c0255f7a1eb3cbe94cffca9c65bf84abdbf7daff02639d4ae8656105236007a6",
+  "signature_verified": true,
+  "signature_scheme": "v2 debug",
+  "android_lint_issues": 0,
+  "android_device_tested": false,
+  "runtime_youtube_integration": false
+}

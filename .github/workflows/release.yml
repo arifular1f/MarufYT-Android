@@ -1,0 +1,30 @@
+name: Source preview release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+jobs:
+  verify:
+    uses: ./.github/workflows/android.yml
+  release:
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Create source-only artifacts
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: python tools/prepare_release.py --output dist --tag "$RELEASE_TAG"
+      - name: Audit archive
+        run: python tools/audit_release.py dist/*-source.zip
+      - name: Publish prerelease source only
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: gh release create "$RELEASE_TAG" dist/*-source.zip dist/SHA256SUMS.txt dist/RELEASE_REPORT.json --verify-tag --prerelease --title "MarufYT Android $RELEASE_TAG — developer preview" --notes-file Documentation/RELEASE_NOTES.md

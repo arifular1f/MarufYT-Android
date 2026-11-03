@@ -1,0 +1,7 @@
+pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories { google(); mavenCentral() }
+}
+rootProject.name = 'MarufYT-Android'
+include ':app', ':tools:apk-analysis', ':tools:apk-validation-signing', ':patches:patch-management', ':integrations:sponsorblock', ':integrations:player-customization', ':integrations:privacy-diagnostics'

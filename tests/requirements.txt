@@ -1,0 +1,2 @@
+# Host-only JSON Schema validation; no Android/runtime dependency.
+jsonschema==4.25.1

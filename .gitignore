@@ -1,0 +1,19 @@
+.gradle/
+**/build/
+local.properties
+.idea/
+*.iml
+*.jks
+*.keystore
+*.pem
+*.p12
+.env*
+*.apk
+*.aab
+__pycache__/
+validation-local/
+/main apk/
+*.apks
+*.xapk
+*.obb
+/dist/
