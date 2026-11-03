@@ -142,7 +142,7 @@ Modified (12):
 
 Publication succeeded. Public repository: https://github.com/arifular1f/MarufYT-Android . Prerelease: https://github.com/arifular1f/MarufYT-Android/releases/tag/v0.2.0-preview.1 . Tagged release commit: `5fd6fa3db1eb7715f4d7f61df846b1f4a842b038`. Tag: `v0.2.0-preview.1`. It is marked prerelease, not stable.
 
-The tag's source-release workflow passed: https://github.com/arifular1f/MarufYT-Android/actions/runs/41654493239 . The tagged main-branch build also passed: https://github.com/arifular1f/MarufYT-Android/actions/runs/41654487526 . Both exercised the source checks, Python/Java tests, Android build/lint and signature verification. The release job additionally packaged/audited source and published the prerelease. No remote history/tag was force-pushed or replaced.
+The tag's source-release workflow passed: https://github.com/arifular1f/MarufYT-Android/actions/runs/41654493239 . Its reusable verify/build job exercised source checks, Python/Java tests, Android build/lint and signature verification; its release job additionally packaged/audited source and published the prerelease. Earlier main CI also passed at run 41654030956. Separate branch run 41654487526 was still active at reporting time and is not cited as a confirmed success. Later main documentation updates trigger their own checks. No remote history/tag was force-pushed or replaced.
 
 Downloaded release artifacts were verified locally against their checksums and GitHub asset digests. The source ZIP contains 94 reviewed files plus SOURCE_MANIFEST.json, and every manifest hash/ZIP CRC passed audit. The packaging report identifies the same tagged commit and patch_supported=false.
 
