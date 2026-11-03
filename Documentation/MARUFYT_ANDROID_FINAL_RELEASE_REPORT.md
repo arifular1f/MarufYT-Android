@@ -137,3 +137,23 @@ Modified (12):
 - `app/ui-settings/README.md`
 - `integrations/sponsorblock/README.md`
 - `tools/validate_foundation.py`
+
+## Verified publication addendum
+
+Publication succeeded. Public repository: https://github.com/arifular1f/MarufYT-Android . Prerelease: https://github.com/arifular1f/MarufYT-Android/releases/tag/v0.2.0-preview.1 . Tagged release commit: `5fd6fa3db1eb7715f4d7f61df846b1f4a842b038`. Tag: `v0.2.0-preview.1`. It is marked prerelease, not stable.
+
+The tag's source-release workflow passed: https://github.com/arifular1f/MarufYT-Android/actions/runs/41654493239 . The tagged main-branch build also passed: https://github.com/arifular1f/MarufYT-Android/actions/runs/41654487526 . Both exercised the source checks, Python/Java tests, Android build/lint and signature verification. The release job additionally packaged/audited source and published the prerelease. No remote history/tag was force-pushed or replaced.
+
+Downloaded release artifacts were verified locally against their checksums and GitHub asset digests. The source ZIP contains 94 reviewed files plus SOURCE_MANIFEST.json, and every manifest hash/ZIP CRC passed audit. The packaging report identifies the same tagged commit and patch_supported=false.
+
+| Published artifact | SHA-256 |
+| --- | --- |
+| MarufYT-Android-0.2.0-preview.1-source.zip (354,214 bytes) | `ec56e3f552493243edb8ed5d3cbe4f25cbb75f079875b052099ad01d6236eb9a` |
+| RELEASE_REPORT.json | `6a709f288931431e99a5fc2cdd4c32ed2aa267199c39f83e4dcdfb214066cfe4` |
+| SHA256SUMS.txt | `dd91b135e9d67999ff0bc91b4fa8e76ae5c659db17306ad25de957c378035d2a` |
+| MARUFYT_ANDROID_FINAL_RELEASE_REPORT.md | Supplemental post-publication document; covered by FINAL_REPORT_SHA256.txt |
+| FINAL_REPORT_SHA256.txt | Supplemental checksum for the final report; avoids recursive self-hashing |
+
+The immutable source ZIP contains the report as it existed at tagging. This publication addendum is committed on main and provided as a supplemental release document; the release tag and original source assets remain unchanged. Local downloaded copies are in dist/published. The companion debug APK remains local/CI-only, not a release asset. No original YouTube binary or modified YouTube APK has been uploaded.
+
+The final original-input verification still matches `55be430ce82dcedcb737ea27d1b78576737b75d11cde04aa89989e5376d3ae6c`; the iOS worktree retains its pre-existing status. All runtime/device/licensing limitations above remain applicable after publication. Stop after this consolidated task.
