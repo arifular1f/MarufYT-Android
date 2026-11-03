@@ -24,6 +24,10 @@ jobs:
         with:
           python-version: '3.12'
       - uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: '13114758'
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
       - name: Install pinned SDK packages
         run: sdkmanager 'platform-tools' 'platforms;android-36' 'build-tools;35.0.0'
       - name: Validate structure and secret guard
