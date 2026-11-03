@@ -61,7 +61,11 @@ Source release payloads: `MarufYT-Android-0.2.0-preview.1-source.zip`, `RELEASE_
 
 ## GitHub publication status
 
-Publication is the final external step after local validation and staged-file review. Target: https://github.com/arifular1f/MarufYT-Android . GitHub authentication was verified as arifular1f and the repository was initially absent/inaccessible. Actual publication results, commit/tag and workflow evidence will be appended after the authorized publication attempt; no successful remote run is inferred from local checks.
+Repository created and source published publicly: https://github.com/arifular1f/MarufYT-Android . GitHub authentication was verified as arifular1f; the repository was initially absent. First source commit: bcd057925cd8abcdfbd963e7a4bd24a9e1224634. Remote CI passed on d19cb4f5c39aa2e7170923f5085a03781b3b4970: https://github.com/arifular1f/MarufYT-Android/actions/runs/41654030956 .
+
+Initial remote run 41653879039 failed because setup-android's default package list requested the removed tools package. The fix pins the locally tested command-line tools build 13114758, installs platform-tools and suppresses noisy license logging. The subsequent remote run passed all Python/Java tests, build/lint/signature checks and debug/checksum artifact uploads. No test was weakened. Runner annotations mention legacy Node action runtimes/major action versions; these remain a maintenance item before production hardening, not a successful-run failure.
+
+The tag-triggered source-only prerelease is prepared as v0.2.0-preview.1 and will be verified by its own workflow. Final release URL, tagged commit, assets and checksums are recorded below after publication; no pending release is represented as published here.
 
 ## Exact build and installation
 

@@ -25,7 +25,7 @@ python -m unittest discover -s tests -v
 
 Linux/macOS: replace `.\gradlew.bat` with `bash gradlew`. The wrapper downloads Gradle 8.13 and verifies its official distribution SHA-256. A global Gradle installation is unnecessary.
 
-The consolidated preview runs 50 Python tests and two app JVM theme-policy tests. JSON Schema validation is host-only; JUnit 4.13.2 is test-only. Empty integration modules still report NO-SOURCE. No instrumented/device tests are claimed. Use `gradlew.bat test assembleDebug lintDebug`; output is app/build/outputs/apk/debug/app-debug.apk.
+The consolidated preview runs 51 Python tests and two app JVM theme-policy tests. JSON Schema validation is host-only; JUnit 4.13.2 is test-only. Empty integration modules still report NO-SOURCE. No instrumented/device tests are claimed. Use `gradlew.bat test assembleDebug lintDebug`; output is app/build/outputs/apk/debug/app-debug.apk.
 
 Build memory settings: 1536 MB Gradle heap, two workers, no parallel project execution and no persistent daemon. Close unnecessary applications on an 8 GB PC; use --max-workers=1 if memory pressure occurs.
 
