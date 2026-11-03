@@ -1,0 +1,41 @@
+name: Feature Request / Research Proposal
+description: Propose an Android feature or research exploration with technical justification
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting an enhancement to MarufYT Android!
+        Please review our [Feature Matrix](https://github.com/arifular1f/MarufYT-Android/blob/main/Documentation/ANDROID_FEATURE_MATRIX.md) before submitting to check existing blocker status.
+  - type: input
+    id: feature-title
+    attributes:
+      label: Feature Name
+      description: Concise title of the proposed capability.
+      placeholder: "e.g., Extended playback speed steps"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem & User Story
+      description: What limitation or workflow does this feature address?
+    validations:
+      required: true
+  - type: textarea
+    id: technical-context
+    attributes:
+      label: Technical Integration & Bytecode Context
+      description: Provide Smali classes, ExoPlayer contracts, or system APIs relevant to this feature.
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Invariant Acknowledgments
+      options:
+        - label: I confirm this proposal does NOT require proprietary YouTube binaries or signing keys.
+          required: true
+        - label: I confirm this proposal respects the zero-telemetry and source-only principles.
+          required: true

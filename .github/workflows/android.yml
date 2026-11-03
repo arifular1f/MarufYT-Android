@@ -14,53 +14,72 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - name: Validate Gradle wrapper
-        uses: gradle/actions/wrapper-validation@v4
-      - uses: actions/setup-java@v4
+      - name: Checkout source code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Validate Gradle wrapper checksum
+        uses: gradle/actions/wrapper-validation@ccb72a6a575a2cb70f24f5ec98d00d7fb473d22e # v4.4.1
+
+      - name: Set up OpenJDK 17
+        uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
         with:
           distribution: temurin
           java-version: '17'
-      - uses: actions/setup-python@v5
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
         with:
           python-version: '3.12'
-      - uses: android-actions/setup-android@v3
+
+      - name: Set up Android SDK commandline tools
+        uses: android-actions/setup-android@b6e0b19a16f2c8d234a413eb44747c34bca81c16 # v3.2.1
         with:
           cmdline-tools-version: '13114758'
           packages: platform-tools
           log-accepted-android-sdk-licenses: false
+
       - name: Install pinned SDK packages
         run: sdkmanager 'platform-tools' 'platforms;android-36' 'build-tools;35.0.0'
-      - name: Validate structure and secret guard
+
+      - name: Validate repository foundation and secret guard
         run: python tools/validate_foundation.py
+
       - name: Install host validation dependencies
         run: python -m pip install -r tests/requirements.txt
+
       - name: Validate published fingerprint metadata
         run: python tools/apk-analysis/validate_fingerprints.py Documentation/PHASE2B_FINGERPRINT_INVENTORY.json
-      - name: Run foundation and synthetic APK analysis tests
+
+      - name: Run Python automated forensic and contract test suite
         run: python -m unittest discover -s tests -v
-      - name: Run JVM tests and build debug APK
+
+      - name: Run JVM tests, assemble debug APK, and run Android Lint
         run: bash gradlew test assembleDebug lintDebug --stacktrace --console=plain
+
       - name: Verify debug APK signature
         run: $ANDROID_HOME/build-tools/35.0.0/apksigner verify --verbose app/build/outputs/apk/debug/app-debug.apk
-      - name: Upload debug APK
-        uses: actions/upload-artifact@v4
+
+      - name: Upload debug APK artifact
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         with:
           name: MarufYT-Android-debug
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 7
+
       - name: Generate debug checksum
         run: sha256sum app/build/outputs/apk/debug/app-debug.apk > app/build/outputs/apk/debug/SHA256SUMS.txt
+
       - name: Upload debug verification metadata
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         with:
           name: MarufYT-debug-checksums
           path: app/build/outputs/apk/debug/SHA256SUMS.txt
           if-no-files-found: error
-      - name: Upload build diagnostics
+
+      - name: Upload build diagnostics on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         with:
           name: build-diagnostics
           path: |
@@ -68,6 +87,7 @@ jobs:
             **/build/test-results/
           if-no-files-found: ignore
           retention-days: 7
+
       - name: Report failure
         if: failure()
         run: echo '::error::Foundation build failed. Inspect the first failed step and available build-diagnostics artifact.'

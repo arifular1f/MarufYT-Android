@@ -30,6 +30,14 @@ REQUIRED += ['release.json','LICENSE_STATUS.md','THIRD_PARTY_NOTICES.md','SECURI
     'Documentation/MARUFYT_ANDROID_FINAL_RELEASE_REPORT.md','Documentation/SEMANTIC_VALIDATION.md','Documentation/PHASE2C_SEMANTIC_VALIDATION_REPORT.md',
     'Documentation/DEVICE_TEST_CHECKLIST.md','Documentation/INSTALLATION.md','Documentation/RELEASE_GUIDE.md',
     'Documentation/RELEASE_NOTES.md','.github/workflows/release.yml']
+REQUIRED += ['tools/marufyt/sponsorblock_controller.py', 'tests/test_sponsorblock_controller.py',
+    'tools/marufyt/settings_bridge.py', 'tests/test_settings_bridge.py',
+    'app/src/main/java/io/github/arifular1f/marufyt/MarufConfig.java',
+    'app/src/test/java/io/github/arifular1f/marufyt/MarufConfigTest.java',
+    'Documentation/ANDROID_SECURITY_AUDIT.md', 'Documentation/ANDROID_PERFORMANCE_REPORT.md',
+    'Documentation/ANDROID_ARCHITECTURE.md', 'Documentation/ANDROID_DEVELOPMENT_GUIDE.md',
+    'Documentation/ANDROID_FEATURE_MATRIX.md', 'Documentation/ANDROID_TEST_REPORT.md',
+    'Documentation/PHASE3_IMPLEMENTATION_REPORT.md', 'Documentation/MARUFYT_ANDROID_PHASE3_FINAL_REPORT.md']
 
 def validate(root=ROOT):
     errors = [f'Missing file: {name}' for name in REQUIRED if not (root / name).is_file()]
