@@ -26,8 +26,8 @@ REQUIRED += ['tools/apk-analysis/dex_reader.py', 'tools/apk-analysis/fingerprint
     'Documentation/PHASE2B_FINGERPRINT_INVENTORY.json', 'Documentation/PHASE2B_IMPLEMENTATION_REPORT.md']
 REQUIRED += ['release.json','LICENSE_STATUS.md','THIRD_PARTY_NOTICES.md','SECURITY.md','CONTRIBUTING.md','CHANGELOG.md',
     'tools/prepare_release.py','tools/audit_release.py','tools/validate_input.py','tools/sponsorblock_lookup.py',
-    'tools/marufyt/sponsorblock.py','tests/test_sponsorblock.py','tests/test_release.py',
-    'Documentation/MARUFYT_ANDROID_FINAL_RELEASE_REPORT.md','Documentation/SEMANTIC_VALIDATION.md',
+    'tools/marufyt/sponsorblock.py','tools/marufyt/semantics.py','tests/test_sponsorblock.py','tests/test_semantics.py','tests/test_release.py',
+    'Documentation/MARUFYT_ANDROID_FINAL_RELEASE_REPORT.md','Documentation/SEMANTIC_VALIDATION.md','Documentation/PHASE2C_SEMANTIC_VALIDATION_REPORT.md',
     'Documentation/DEVICE_TEST_CHECKLIST.md','Documentation/INSTALLATION.md','Documentation/RELEASE_GUIDE.md',
     'Documentation/RELEASE_NOTES.md','.github/workflows/release.yml']
 
